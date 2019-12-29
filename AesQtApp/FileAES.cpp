@@ -17,15 +17,24 @@ FileAES::FileAES(std::string path)
 void remove_r(vector<unsigned char>& data)
 {
 	std::string toErase("\r\n");
+	std::string toPaste("96662a80da4a46ade532db89b0d092a5df8552ea78b6af8e79cdea5959e01034"); // hash
+
 	std::string str(data.begin(), data.end());
 
 	size_t pos = std::string::npos;
 
 	while ((pos = str.find(toErase)) != std::string::npos)
 	{
-		str.erase(pos, toErase.length());
+		str.erase(pos,  toErase.length());
+		str.insert(pos, toPaste);
+	}
+
+	while ((pos = str.find(toPaste)) != std::string::npos)
+	{
+		str.erase(pos, toPaste.length());
 		str.insert(pos, "\n");
 	}
+
 	data = vector<unsigned char>(str.begin(), str.end());
 }
 
@@ -52,7 +61,7 @@ std::vector<unsigned char> FileAES::ReadFile()
 	return vec;
 }
 
-void FileAES::WriteToFile(std::vector<unsigned char> content, bool isEncrypted)
+void FileAES::WriteToFile(ByteArray content, bool isEncrypted)
 {
 	std::string aes(".aes");
 	std::ofstream outfile;

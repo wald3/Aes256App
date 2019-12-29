@@ -33,8 +33,12 @@ private slots:
 
     void on_DecryptBtn_clicked();
 
+    void setFromEnable(bool isDisabled);
+
+    void fillProgressBar();
+
 public slots:
-    void recieveData(bool isEncrypt, QString str);
+    void recieveData(bool isEncrypt, ByteArray str);
 
 private:
     Ui::MainWindow* ui;

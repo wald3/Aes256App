@@ -4,6 +4,8 @@
 
 #include <QDialog>
 
+typedef std::vector<unsigned char> ByteArray;
+
 namespace Ui {
     class passwordWindow;
 }
@@ -20,12 +22,14 @@ protected:
     void changeEvent(QEvent* e);
 
 signals:
-    void sendData(bool isEncrypt, QString str);
+    void sendData(bool isEncrypt, ByteArray str);
 
 private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
+
+    ByteArray str2ByteArray(QString s);
 
 private:
     Ui::passwordWindow* ui;
